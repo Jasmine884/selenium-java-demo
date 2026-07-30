@@ -1,15 +1,17 @@
 package com.example;
 
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import java.time.Duration;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GoogleTest {
 
-    public static void main(String[] args) {
+    @Test
+    public void googleTitleTest() {
 
-        // Tell Selenium where ChromeDriver is
         System.setProperty(
             "webdriver.chrome.driver",
             "/usr/local/bin/chromedriver"
@@ -17,10 +19,8 @@ public class GoogleTest {
 
         ChromeOptions options = new ChromeOptions();
 
-        // Tell Selenium where Chrome browser is
         options.setBinary("/opt/chrome/chrome");
 
-        // Codespaces/Linux container settings
         options.addArguments("--headless=new");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
@@ -29,21 +29,19 @@ public class GoogleTest {
         WebDriver driver = new ChromeDriver(options);
 
         try {
-            driver.manage().timeouts()
-                  .implicitlyWait(Duration.ofSeconds(5));
 
             driver.get("https://www.google.com");
 
-            System.out.println("Page title: " + driver.getTitle());
+            String title = driver.getTitle();
 
-            if (driver.getTitle().contains("Google")) {
-                System.out.println("TEST PASSED");
-            } else {
-                System.out.println("TEST FAILED");
-            }
+            System.out.println("Page title: " + title);
+
+            assertTrue(title.contains("Google"));
 
         } finally {
+
             driver.quit();
+
         }
     }
 }
