@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -12,10 +13,9 @@ public class GoogleTest {
     @Test
     public void googleTitleTest() {
 
-        System.setProperty(
-            "webdriver.chrome.driver",
-            "/usr/local/bin/chromedriver"
-        );
+    WebDriverManager.chromedriver()
+    .browserVersion("128")
+    .setup();
 
         ChromeOptions options = new ChromeOptions();
 
